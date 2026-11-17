@@ -1,0 +1,13 @@
+{
+  "name": "escola-expenses",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Escola Europea · Expense Claims — installable web app with Google Apps Script backend",
+  "scripts": {
+    "test": "node tools/build-gas.mjs && node tests/rules.test.mjs && node tests/backend.test.mjs",
+    "build:gas": "node tools/build-gas.mjs",
+    "serve": "python3 -m http.server 8080"
+  },
+  "engines": { "node": ">=20" }
+}

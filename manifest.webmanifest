@@ -1,0 +1,23 @@
+{
+  "name": "Escola Europea · Expense Claims",
+  "short_name": "Expenses",
+  "description": "Create expense claims, scan receipts and track approval at Escola Europea – Intermodal Transport.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f8fb",
+  "theme_color": "#062f66",
+  "lang": "en",
+  "categories": ["business", "finance", "productivity"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Scan a receipt", "short_name": "Scan", "url": "./?action=scan", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "New expense claim", "short_name": "New claim", "url": "./?action=new", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
