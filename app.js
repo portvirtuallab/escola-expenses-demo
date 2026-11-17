@@ -103,7 +103,7 @@ function signInScreen(error) {
   $('#mobileScan').hidden = true;
   $('#identity').textContent = 'Not signed in';
   $('#main').innerHTML = `<div class="signin">
-    <img src="icons/logo_blue.png" alt="Escola Europea - Intermodal Transport">
+    <img src="logo_blue.png" alt="Escola Europea - Intermodal Transport">
     <div class="eyebrow">Expense claims</div><h1>Sign in to continue</h1>
     <p>Use your <b>@${esc(CFG.allowedDomain || 'escolaeuropea.eu')}</b> Google account. Your claims, receipts and approvals are kept in the Escola Europea Google Workspace.</p>
     <div id="gsi"></div>${error ? `<p class="tiny" style="color:var(--coral)">${esc(error)}</p>` : ''}
@@ -179,7 +179,7 @@ function replaceInList(c) {
 function welcome() {
   S.c = null;
   $('#main').innerHTML = `<div class="empty">
-    <img src="icons/logo_blue.png" alt="Escola Europea - Intermodal Transport" style="height:150px;margin:0 auto 26px;display:block">
+    <img src="logo_blue.png" alt="Escola Europea - Intermodal Transport" style="height:150px;margin:0 auto 26px;display:block">
     <div class="eyebrow">Administration · Expense claims</div><h1>Your expenses, organised.</h1>
     <p>Photograph a receipt and the app reads it for you. Track approval from your manager to administration, and get a PDF with every receipt attached.</p>
     <div class="actions" style="justify-content:center;margin-top:22px"><button class="primary" id="wNew" type="button">＋ New expense claim</button><button class="scanBtn" id="wScan" type="button">📷 Scan a receipt</button></div>
@@ -297,7 +297,7 @@ function render() {
   const stepSub = ['Details and receipts', 'Approve or request changes', c.adminName || 'Tereza or Carola', 'Settlement record'];
   const managers = [...new Set(S.claims.map(x => x.responsible).filter(Boolean))];
   $('#main').innerHTML = `
-    <div class="printOnly printHead"><img src="icons/logo_blue.png" alt="Escola Europea - Intermodal Transport" style="height:58px"><span>Expense claim · printed ${new Date().toLocaleDateString('en-GB')}</span></div>
+    <div class="printOnly printHead"><img src="logo_blue.png" alt="Escola Europea - Intermodal Transport" style="height:58px"><span>Expense claim · printed ${new Date().toLocaleDateString('en-GB')}</span></div>
     <div class="top"><div><div class="eyebrow">Expense claim</div><h1>${esc(c.reference || 'New expense claim')}</h1>
       <span class="tiny">Claim ${c.id.slice(0, 8).toUpperCase()} · ${esc(c.name || c.ownerEmail)} · created ${fmtDate(c.created || c.history[0]?.at)}</span></div>
       <div class="toolbar">${editable() ? '<button id="scanHere" class="secondary scanBtn" type="button">📷 Scan receipt</button>' : ''}
@@ -706,7 +706,7 @@ function notify(title, body, id) {
   toast(title, '', 7000);
   if (document.visibilityState === 'visible' || !('Notification' in window) || Notification.permission !== 'granted') return;
   const reg = navigator.serviceWorker?.controller ? navigator.serviceWorker.ready : null;
-  const opts = { body, icon: 'icons/icon-192.png', badge: 'icons/icon-192.png', tag: id, data: { id } };
+  const opts = { body, icon: 'icon-192.png', badge: 'icon-192.png', tag: id, data: { id } };
   if (reg) reg.then(r => r.showNotification(title, opts)); else new Notification(title, opts);
 }
 

@@ -1,15 +1,15 @@
 // Service worker: makes the app installable and usable offline.
 // App shell → stale-while-revalidate. Heavy libraries (OCR, PDF, fonts) → cache-first.
 // API calls (Google Apps Script) and Google Sign-In are never cached.
-const VERSION = 'v2.0.0';
+const VERSION = 'v2.0.1';
 const SHELL = `shell-${VERSION}`;
 const LIBS = `libs-${VERSION}`;
 const SHELL_FILES = [
-  './', 'index.html', 'manifest.webmanifest', 'css/app.css',
-  'js/config.js', 'js/rules.js', 'js/app.js', 'js/store.js', 'js/backends.js', 'js/auth.js', 'js/data.js',
-  'js/scanner.js', 'js/rates.js', 'js/pdf.js',
-  'icons/logo_blue.png', 'icons/mark_white.png', 'icons/mark_blue.png', 'icons/icon-192.png', 'icons/favicon-64.png',
-  'vendor/fonts/inter-latin-wght-normal.woff2', 'vendor/pdf-lib.min.js'
+  './', 'index.html', 'manifest.webmanifest', 'app.css',
+  'config.js', 'rules.js', 'app.js', 'store.js', 'backends.js', 'auth.js', 'data.js',
+  'scanner.js', 'rates.js', 'pdf.js',
+  'logo_blue.png', 'mark_white.png', 'mark_blue.png', 'icon-192.png', 'favicon-64.png',
+  'inter-latin-wght-normal.woff2', 'pdf-lib.min.js'
 ];
 
 self.addEventListener('install', e => {
@@ -26,7 +26,7 @@ self.addEventListener('fetch', e => {
   if (req.method !== 'GET') return;
   const url = new URL(req.url);
   if (url.origin !== location.origin) return; // Google APIs, Sign-In and exchange rates go to the network
-  if (url.pathname.includes('/vendor/')) {
+  if (/(tesseract|worker\.min|traineddata|pdf-lib|\.woff2)/.test(url.pathname)) {
     e.respondWith(caches.open(LIBS).then(async c => (await c.match(req)) || fetch(req).then(r => { if (r.ok) c.put(req, r.clone()); return r; })));
     return;
   }
@@ -40,9 +40,9 @@ self.addEventListener('fetch', e => {
 
 // Downloads the receipt reader and PDF builder in the background so they also work offline.
 const OFFLINE_LIBS = [
-  'vendor/tesseract/tesseract.min.js', 'vendor/tesseract/worker.min.js',
-  'vendor/tesseract/core/tesseract-core-simd-lstm.wasm.js', 'vendor/tesseract/core/tesseract-core-lstm.wasm.js',
-  'vendor/tesseract/lang/eng.traineddata.gz', 'vendor/pdf-lib.min.js', 'vendor/fonts/inter-latin-ext-wght-normal.woff2'
+  'tesseract.min.js', 'worker.min.js',
+  'tesseract-core-simd-lstm.wasm.js', 'tesseract-core-lstm.wasm.js',
+  'eng.traineddata.gz', 'pdf-lib.min.js', 'inter-latin-ext-wght-normal.woff2'
 ];
 self.addEventListener('message', e => {
   if (e.data === 'skip-waiting') self.skipWaiting();

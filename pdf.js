@@ -1,13 +1,13 @@
 // Builds the claim PDF on this device: branded summary pages, then every receipt
 // (photos as full pages, PDF receipts merged page by page).
 const Rules = globalThis.Rules;
-const base = new URL('../', import.meta.url);
+const base = new URL('./', import.meta.url);
 
 function loadPdfLib() {
   if (globalThis.PDFLib) return Promise.resolve();
   return new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = new URL('vendor/pdf-lib.min.js', base).href;
+    s.src = new URL('pdf-lib.min.js', base).href;
     s.onload = resolve; s.onerror = () => reject(new Error('The PDF builder could not be loaded.'));
     document.head.appendChild(s);
   });
@@ -30,7 +30,7 @@ export async function buildClaimPdf(claim, getFile, onProgress = () => {}) {
   doc.setProducer('Escola Europea · Expense Claims');
   const font = await doc.embedFont(StandardFonts.Helvetica);
   const bold = await doc.embedFont(StandardFonts.HelveticaBold);
-  const logoBytes = await (await fetch(new URL('icons/logo_blue.png', base))).arrayBuffer();
+  const logoBytes = await (await fetch(new URL('logo_blue.png', base))).arrayBuffer();
   const logo = await doc.embedPng(logoBytes);
 
   // Helvetica only covers WinAnsi: replace anything it cannot draw (e.g. Turkish ş, ı).

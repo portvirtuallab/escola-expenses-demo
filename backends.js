@@ -99,7 +99,7 @@ export class DemoBackend {
         const c = structuredClone(find(p.id));
         const out = Rules.applyAction(c, p.claim, u, p.op, p.comment, now);
         if (out.notify) {
-          const msg = Rules.notification(c, out.notify, location.href.split('?')[0], new URL('icons/mark_white.png', location.href).href);
+          const msg = Rules.notification(c, out.notify, location.href.split('?')[0], new URL('mark_white.png', location.href).href);
           const box = await this.mailbox();
           box.unshift({ ...msg, at: now, claimId: c.id });
           await store.put('kv', box.slice(0, 50), 'demo:mailbox');

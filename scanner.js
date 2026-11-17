@@ -1,7 +1,7 @@
 // Receipt scanner: camera capture, image compression and on-device OCR (Tesseract, self-hosted).
 // Nothing leaves the device during recognition; only the final receipt file is uploaded.
 
-const base = new URL('../', import.meta.url);
+const base = new URL('./', import.meta.url);
 let workerPromise = null;
 
 /* ───────── camera ───────── */
@@ -79,7 +79,7 @@ function loadTesseract() {
   if (globalThis.Tesseract) return Promise.resolve();
   return new Promise((resolve, reject) => {
     const s = document.createElement('script');
-    s.src = new URL('vendor/tesseract/tesseract.min.js', base).href;
+    s.src = new URL('tesseract.min.js', base).href;
     s.onload = resolve; s.onerror = () => reject(new Error('The receipt reader could not be loaded.'));
     document.head.appendChild(s);
   });
@@ -90,9 +90,9 @@ async function getWorker(onProgress) {
     workerPromise = (async () => {
       await loadTesseract();
       const worker = await Tesseract.createWorker('eng', 1, {
-        workerPath: new URL('vendor/tesseract/worker.min.js', base).href,
-        corePath: new URL('vendor/tesseract/core', base).href,
-        langPath: new URL('vendor/tesseract/lang', base).href,
+        workerPath: new URL('worker.min.js', base).href,
+        corePath: base.href.replace(/\/$/, ''),
+        langPath: base.href.replace(/\/$/, ''),
         gzip: true,
         logger: m => getWorker.progress?.(m)
       });

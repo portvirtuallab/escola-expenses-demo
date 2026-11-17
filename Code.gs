@@ -259,7 +259,7 @@ function claimFolder_(c) {
 
 function sendMail_(c, kind) {
   var appUrl = prop_('APP_URL', '');
-  var msg = Rules.notification(c, kind, appUrl, appUrl ? appUrl.replace(/\/?$/, '/') + 'icons/mark_white.png' : '');
+  var msg = Rules.notification(c, kind, appUrl, appUrl ? appUrl.replace(/\/?$/, '/') + 'mark_white.png' : '');
   if (!msg || !msg.to) return { state: 'skipped', kind: kind };
   if (prop_('MAIL_ENABLED', 'true') !== 'true') return { state: 'manual', kind: kind, to: msg.to, subject: msg.subject, body: msg.text };
   try {

@@ -1,5 +1,7 @@
 # Escola Europea · Expense Claims
 
+> This repository uses the **flat layout**: every file sits in the root folder (easy to upload through the GitHub website).
+
 An installable web app for expense claims at Escola Europea – Intermodal Transport: scan receipts with the camera, have them read on the device, send the claim for approval, and download a PDF with every receipt attached.
 
 **Live demo:** publish this folder on GitHub Pages and open it. Until the Google service is configured, the app runs in **demo mode**: everything stays in the browser and a "View as" selector lets you play claimant, manager and administration.
